@@ -15,7 +15,7 @@ First, make sure that you include the script before creating any Palette.
 
 There are two ways to create Palettes, you can pass an array or an object to the method.
 
-### 1. Array
+### 1. Array
 ```html
 <script>
 var MyPalette = new ColorPalette(['#002a4a', '#17607d', '#fff1ce', '#ff9311', '#d64700']);
