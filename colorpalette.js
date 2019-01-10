@@ -1,9 +1,8 @@
 /**
  * @param {Object|String[]} colors
- * @param {Object} options
  * @constructor
  */
-function ColorPalette (colors, options) {
+function ColorPalette (colors) {
   // CSS classes
   this.wrapperClass = 'ColorPalette'
   this.layerClass = `${this.wrapperClass}-layer`
