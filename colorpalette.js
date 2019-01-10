@@ -6,17 +6,14 @@
 function ColorPalette (colors, options) {
   // CSS classes
   this.wrapperClass = 'ColorPalette'
-  this.wrapperTitleClass = `${this.wrapperClass}-title`
   this.layerClass = 'Layer'
   this.layerContentClass = `${this.layerClass}-content`
 
   // Breakpoint is actually used in a max-width `@media` rule
   this.breakpoint = '48em'
 
-  // Create structure and title if you set one
+  // Create structure
   this.createWrapper()
-
-  if (options) this.createPaletteTitle(options)
 
   if (colors) {
     this.colorsLength = Array.isArray(colors) ? colors.length : Object.keys(colors).length
@@ -46,17 +43,6 @@ ColorPalette.prototype.createWrapper = function () {
   })
 
   document.body.appendChild(this.wrapper)
-}
-
-/**
- * Create palette title and append it on top of the wrapper content
- * @param {Object} options
- */
-ColorPalette.prototype.createPaletteTitle = function (options) {
-  this.paletteTitle = document.createElement(options.titleLevel)
-  this.paletteTitle.classList.add(this.wrapperTitleClass)
-  this.paletteTitle.innerHTML = options.title
-  this.wrapper.insertBefore(this.paletteTitle, this.wrapper.firstChild)
 }
 
 /**
