@@ -6,8 +6,8 @@
 function ColorPalette (colors, options) {
   // CSS classes
   this.wrapperClass = 'ColorPalette'
-  this.layerClass = 'Layer'
-  this.layerContentClass = `${this.layerClass}-content`
+  this.layerClass = `${this.wrapperClass}-layer`
+  this.layerContentClass = `${this.layerClass}Content`
 
   // Breakpoint is actually used in a max-width `@media` rule
   this.breakpoint = '48em'
