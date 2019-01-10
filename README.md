@@ -18,7 +18,7 @@ There are two ways to create Palettes, you can pass an array or an object to the
 ### 1. Array
 ```html
 <script>
-var MyPalette = new ColorPalette(['#002a4a', '#17607d', '#fff1ce', '#ff9311', '#d64700']);
+var MyPalette = new ColorPalette(['#002a4a', '#17607d', '#fff1ce', '#ff9311', '#d64700'])
 </script>
 ```
 
@@ -36,7 +36,7 @@ If you want to customize the text that is added to the layers, you can pass your
     '#fff1ce': 'Want',
     '#ff9311': 'From me',
     '#d64700': '' // If you don't set a value, the color code will be used
-  });
+  })
 </script>
 ```
 
