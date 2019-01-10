@@ -29,18 +29,10 @@ function ColorPalette (colors, options) {
       const layerColor = Array.isArray(colors) ? colors[color] : color
       this.createLayer(layerColor, colors[color])
     }
-
-    // We do not generate the styles each time we instanciate the object
-    if (!ColorPalette.styleGenerated) {
-      this.generateStyle()
-      ColorPalette.styleGenerated = true
-    }
   } else {
     console.warn('Missing colors to build colorpalette.')
   }
 }
-
-ColorPalette.styleGenerated = false
 
 /**
  * Create palette wrapper and append it to the document body
@@ -114,41 +106,4 @@ ColorPalette.prototype.layerContent = function (parentLayer, content) {
   layerContent.innerHTML = content
 
   parentLayer.appendChild(layerContent)
-}
-
-ColorPalette.prototype.generateStyle = function () {
-  const style = document.createElement('style')
-  const css = `
-    *,
-    *::before,
-    *::after {
-      box-sizing: inherit;
-    }
-
-    html {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-      font-size: 1em;
-      line-height: 1.5;
-      margin: 0;
-      padding: 0;
-    }
-
-    .${this.wrapperClass}:nth-of-type(n+2) {
-      margin-top: 5em;
-    }
-
-    @media screen and (max-width: ${this.breakpoint}) {
-      .${this.layerContainerClass} {
-        flex-direction: column;
-      }
-    }
-  `
-
-  style.appendChild(document.createTextNode(css))
-
-  document.head.appendChild(style)
 }
