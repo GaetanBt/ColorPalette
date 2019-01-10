@@ -16,9 +16,6 @@ function ColorPalette (colors, options) {
   this.createWrapper()
 
   if (colors) {
-    this.colorsLength = Array.isArray(colors) ? colors.length : Object.keys(colors).length
-    this.layerWidth = Math.round(100 / this.colorsLength * 1000) / 1000 + '%'
-
     // You can pass either an object or an array to the `createLayer()` function
     for (let color in colors) {
       const layerColor = Array.isArray(colors) ? colors[color] : color
@@ -56,7 +53,7 @@ ColorPalette.prototype.createLayer = function (color, content) {
 
   Object.assign(layer.style, {
     backgroundColor: color,
-    flexBasis: this.layerWidth,
+    flexGrow: 1,
     textAlign: 'center'
   })
 
