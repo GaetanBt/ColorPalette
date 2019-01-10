@@ -4,93 +4,72 @@
  * @constructor
  */
 function ColorPalette (colors, options) {
-
   // CSS classes
-  this.wrapperClass = 'ColorPalette';
-  this.wrapperTitleClass = `${this.wrapperClass}-title`;
-  this.layerContainerClass = 'Layers-container';
-  this.layerClass = 'Layer';
-  this.layerContentClass = `${this.layerClass}-content`;
+  this.wrapperClass = 'ColorPalette'
+  this.wrapperTitleClass = `${this.wrapperClass}-title`
+  this.layerContainerClass = 'Layers-container'
+  this.layerClass = 'Layer'
+  this.layerContentClass = `${this.layerClass}-content`
 
   // Breakpoint is actually used in a max-width `@media` rule
-  this.breakpoint = '48em';
+  this.breakpoint = '48em'
 
   // Create structure and title if you set one
-  this.createWrapper();
-  this.createLayerContainer();
+  this.createWrapper()
+  this.createLayerContainer()
 
-  if ( options ) this.createPaletteTitle(options);
+  if (options) this.createPaletteTitle(options)
 
-  if ( colors ) {
-
-    this.colorsLength = Array.isArray(colors) ? colors.length : Object.keys(colors).length;
-    this.layerWidth = Math.round(100 / this.colorsLength * 1000) / 1000 + '%';
-
+  if (colors) {
+    this.colorsLength = Array.isArray(colors) ? colors.length : Object.keys(colors).length
+    this.layerWidth = Math.round(100 / this.colorsLength * 1000) / 1000 + '%'
 
     // You can pass either an object or an array to the `createLayer()` function
-    for ( let color in colors ) {
-      const layerColor = Array.isArray(colors) ? colors[color] : color;
-      this.createLayer(layerColor, colors[color]);
+    for (let color in colors) {
+      const layerColor = Array.isArray(colors) ? colors[color] : color
+      this.createLayer(layerColor, colors[color])
     }
-
 
     // We do not generate the styles each time we instanciate the object
-    if ( !ColorPalette.styleGenerated ) {
-      this.generateStyle();
-      ColorPalette.styleGenerated = true;
+    if (!ColorPalette.styleGenerated) {
+      this.generateStyle()
+      ColorPalette.styleGenerated = true
     }
-
+  } else {
+    console.warn('Missing colors to build colorpalette.')
   }
-  else {
-    console.warn('Missing colors to build colorpalette.');
-  }
-
 }
 
-ColorPalette.styleGenerated = false;
-
-
+ColorPalette.styleGenerated = false
 
 /**
  * Create palette wrapper and append it to the document body
  */
 ColorPalette.prototype.createWrapper = function () {
-
-  this.wrapper = document.createElement('div');
-  this.wrapper.classList.add(this.wrapperClass);
-  document.body.appendChild(this.wrapper);
-
-};
-
-
+  this.wrapper = document.createElement('div')
+  this.wrapper.classList.add(this.wrapperClass)
+  document.body.appendChild(this.wrapper)
+}
 
 /**
  * Create palette title and append it on top of the wrapper content
  * @param {Object} options
  */
 ColorPalette.prototype.createPaletteTitle = function (options) {
-
-  this.paletteTitle = document.createElement(options.titleLevel);
-  this.paletteTitle.classList.add(this.wrapperTitleClass);
-  this.paletteTitle.innerHTML = options.title;
-  this.wrapper.insertBefore(this.paletteTitle, this.wrapper.firstChild);
-
-};
-
-
+  this.paletteTitle = document.createElement(options.titleLevel)
+  this.paletteTitle.classList.add(this.wrapperTitleClass)
+  this.paletteTitle.innerHTML = options.title
+  this.wrapper.insertBefore(this.paletteTitle, this.wrapper.firstChild)
+}
 
 /**
  * Create layers container and append it to the wrapper
  */
 ColorPalette.prototype.createLayerContainer = function () {
-
-  this.layerContainer = document.createElement('div');
-  this.layerContainer.classList.add(this.layerContainerClass);
-  this.wrapper.appendChild(this.layerContainer);
-
-};
-
-
+  this.layerContainer = document.createElement('div')
+  this.layerContainer.classList.add(this.layerContainerClass)
+  this.wrapper.appendChild(this.layerContainer)
+}
 
 /**
  * Create each layer which represent the color areas on the palette and append them to their container
@@ -98,37 +77,28 @@ ColorPalette.prototype.createLayerContainer = function () {
  * @param {String} content
  */
 ColorPalette.prototype.createLayer = function (color, content) {
-
-  let layer = document.createElement('div');
-  layer.classList.add(this.layerClass);
-  layer.setAttribute('style', `background-color: ${color};`);
+  let layer = document.createElement('div')
+  layer.classList.add(this.layerClass)
+  layer.setAttribute('style', `background-color: ${color};`)
 
   // If no content is provided, we use the color instead
-  content = content || color;
-  this.layerContent(layer, content);
+  content = content || color
+  this.layerContent(layer, content)
 
-  this.layerContainer.appendChild(layer);
-
-};
-
-
+  this.layerContainer.appendChild(layer)
+}
 
 ColorPalette.prototype.layerContent = function (parentLayer, content) {
+  let layerContent = document.createElement('div')
 
-  let layerContent = document.createElement('div');
+  layerContent.classList.add(this.layerContentClass)
+  layerContent.innerHTML = content
 
-  layerContent.classList.add(this.layerContentClass);
-  layerContent.innerHTML = content;
-
-  parentLayer.appendChild(layerContent);
-
-};
-
-
+  parentLayer.appendChild(layerContent)
+}
 
 ColorPalette.prototype.generateStyle = function () {
-
-  const style = document.createElement('style');
+  const style = document.createElement('style')
   const css = `
     *,
     *::before,
@@ -175,10 +145,9 @@ ColorPalette.prototype.generateStyle = function () {
         flex-direction: column;
       }
     }
-  `;
+  `
 
-  style.appendChild(document.createTextNode(css));
+  style.appendChild(document.createTextNode(css))
 
-  document.head.appendChild(style);
-
-};
+  document.head.appendChild(style)
+}
