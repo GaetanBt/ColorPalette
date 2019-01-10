@@ -15,14 +15,14 @@ function ColorPalette (colors, options) {
   // Create structure
   this.createWrapper()
 
-  if (colors) {
-    // You can pass either an object or an array to the `createLayer()` function
-    for (let color in colors) {
-      const layerColor = Array.isArray(colors) ? colors[color] : color
-      this.createLayer(layerColor, colors[color])
-    }
-  } else {
-    console.warn('Missing colors to build colorpalette.')
+  if (!colors) {
+    throw new Error('ColorPalette() -> Missing colors to build colorpalette.')
+  }
+
+  // You can pass either an object or an array to the `createLayer()` function
+  for (let color in colors) {
+    const layerColor = Array.isArray(colors) ? colors[color] : color
+    this.createLayer(layerColor, colors[color])
   }
 }
 
