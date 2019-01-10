@@ -7,7 +7,6 @@ function ColorPalette (colors, options) {
   // CSS classes
   this.wrapperClass = 'ColorPalette'
   this.wrapperTitleClass = `${this.wrapperClass}-title`
-  this.layerContainerClass = 'Layers-container'
   this.layerClass = 'Layer'
   this.layerContentClass = `${this.layerClass}-content`
 
@@ -16,7 +15,6 @@ function ColorPalette (colors, options) {
 
   // Create structure and title if you set one
   this.createWrapper()
-  this.createLayerContainer()
 
   if (options) this.createPaletteTitle(options)
 
@@ -40,6 +38,13 @@ function ColorPalette (colors, options) {
 ColorPalette.prototype.createWrapper = function () {
   this.wrapper = document.createElement('div')
   this.wrapper.classList.add(this.wrapperClass)
+
+  Object.assign(this.wrapper.style, {
+    display: 'flex',
+    height: '100vh',
+    width: '100%'
+  })
+
   document.body.appendChild(this.wrapper)
 }
 
@@ -52,22 +57,6 @@ ColorPalette.prototype.createPaletteTitle = function (options) {
   this.paletteTitle.classList.add(this.wrapperTitleClass)
   this.paletteTitle.innerHTML = options.title
   this.wrapper.insertBefore(this.paletteTitle, this.wrapper.firstChild)
-}
-
-/**
- * Create layers container and append it to the wrapper
- */
-ColorPalette.prototype.createLayerContainer = function () {
-  this.layerContainer = document.createElement('div')
-  this.layerContainer.classList.add(this.layerContainerClass)
-
-  Object.assign(this.layerContainer.style, {
-    display: 'flex',
-    height: '100vh',
-    width: '100%'
-  })
-
-  this.wrapper.appendChild(this.layerContainer)
 }
 
 /**
@@ -89,7 +78,7 @@ ColorPalette.prototype.createLayer = function (color, content) {
   content = content || color
   this.layerContent(layer, content)
 
-  this.layerContainer.appendChild(layer)
+  this.wrapper.appendChild(layer)
 }
 
 ColorPalette.prototype.layerContent = function (parentLayer, content) {
