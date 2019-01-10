@@ -68,6 +68,13 @@ ColorPalette.prototype.createPaletteTitle = function (options) {
 ColorPalette.prototype.createLayerContainer = function () {
   this.layerContainer = document.createElement('div')
   this.layerContainer.classList.add(this.layerContainerClass)
+
+  Object.assign(this.layerContainer.style, {
+    display: 'flex',
+    height: '100vh',
+    width: '100%'
+  })
+
   this.wrapper.appendChild(this.layerContainer)
 }
 
@@ -79,7 +86,12 @@ ColorPalette.prototype.createLayerContainer = function () {
 ColorPalette.prototype.createLayer = function (color, content) {
   let layer = document.createElement('div')
   layer.classList.add(this.layerClass)
-  layer.setAttribute('style', `background-color: ${color};`)
+
+  Object.assign(layer.style, {
+    backgroundColor: color,
+    flexBasis: this.layerWidth,
+    textAlign: 'center'
+  })
 
   // If no content is provided, we use the color instead
   content = content || color
@@ -90,8 +102,15 @@ ColorPalette.prototype.createLayer = function (color, content) {
 
 ColorPalette.prototype.layerContent = function (parentLayer, content) {
   let layerContent = document.createElement('div')
-
   layerContent.classList.add(this.layerContentClass)
+
+  Object.assign(layerContent.style, {
+    background: 'rgba(255, 255, 255, .4)',
+    boxShadow: '0 0 2px rgba(0, 0, 0, .25)',
+    display: 'inline-block',
+    padding: '.5em 1em'
+  })
+
   layerContent.innerHTML = content
 
   parentLayer.appendChild(layerContent)
@@ -118,26 +137,8 @@ ColorPalette.prototype.generateStyle = function () {
       padding: 0;
     }
 
-    .${this.layerContainerClass} {
-      display: flex;
-      height: 100vh;
-      width: 100%;
-    }
-
     .${this.wrapperClass}:nth-of-type(n+2) {
       margin-top: 5em;
-    }
-
-    .${this.layerClass} {
-      flex-basis: ${this.layerWidth};
-      text-align: center;
-    }
-
-    .${this.layerContentClass} {
-      background: rgba(255, 255, 255, .4);
-      box-shadow: 0 0 2px rgba(0, 0, 0, .25);
-      display: inline-block;
-      padding: .5em 1em;
     }
 
     @media screen and (max-width: ${this.breakpoint}) {
