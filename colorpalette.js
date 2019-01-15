@@ -75,7 +75,7 @@ class ColorPalette {
    * @param {String} content
    */
   createLayer (color, content) {
-    let layer = this.createElement({
+    const layer = this.createElement({
       el: 'div',
       classes: [this.layerClass],
       styles: {
@@ -88,11 +88,11 @@ class ColorPalette {
 
     // If no content is provided, we use the color instead
     content = content || color
-    this.layerContent(layer, content)
+    this.createLayerContent(layer, content)
   }
 
-  layerContent (parentLayer, content) {
-    let layerContent = this.createElement({
+  createLayerContent (parent, content) {
+    const layerContent = this.createElement({
       el: 'div',
       classes: [this.layerContentClass],
       styles: {
@@ -101,7 +101,7 @@ class ColorPalette {
         display: 'inline-block',
         padding: '.5em 1em'
       },
-      appendTo: parentLayer
+      appendTo: parent
     })
 
     layerContent.innerHTML = content
