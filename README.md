@@ -40,6 +40,25 @@ If you want to customize the text that is added to the layers, you can pass your
 </script>
 ```
 
+## Configuration
+
+There is some configuration available in the constructor. For now, you can only define a height and a location where to append the palette.
+
+You can do that this way :
+
+```html
+<script>
+  var MyPalette = new ColorPalette(
+    /* My colors */,
+    {
+      height: '250px', // Default -> 100vh
+      appendTo: document.getElementById('my-palette-container') // Default -> document.body
+    }
+  )
+</script>
+```
+
+
 
 ## Credits
 Example palette from [color.adobe.com](https://color.adobe.com/fr/%EB%8B%A4%EC%9D%8C%EC%9D%98-%EB%B3%B5%EC%82%AC%EB%B3%B8-Ping-Pong-palette-color-theme-8490451/)
