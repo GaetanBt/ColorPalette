@@ -23,19 +23,49 @@ function ColorPalette (colors) {
 }
 
 /**
+ * Create a HTML element with some attributes
+ */
+ColorPalette.prototype.createElement = function ({
+  el = null,
+  classes = [],
+  styles = {},
+  appendTo = null
+}) {
+  if (el === null) {
+    throw new Error('ColorPalette.createElement() -> Missing `el` attribute')
+  }
+
+  const element = document.createElement(el)
+
+  if (classes.length) {
+    element.classList.add(...classes)
+  }
+
+  if (Object.keys(styles).length) {
+    Object.assign(element.style, styles)
+  }
+
+  if (appendTo !== null) {
+    appendTo.appendChild(element)
+  }
+
+  return element
+}
+
+/**
  * Create palette wrapper and append it to the document body
  */
 ColorPalette.prototype.createWrapper = function () {
-  this.wrapper = document.createElement('div')
-  this.wrapper.classList.add(this.wrapperClass)
-
-  Object.assign(this.wrapper.style, {
-    display: 'flex',
-    height: '100vh',
-    width: '100%'
+  this.wrapper = this.createElement({
+    el: 'div',
+    classes: [this.wrapperClass],
+    styles: {
+      display: 'flex',
+      height: '100vh',
+      width: '100%'
+    },
+    appendTo: document.body
   })
-
-  document.body.appendChild(this.wrapper)
 }
 
 /**
@@ -44,34 +74,34 @@ ColorPalette.prototype.createWrapper = function () {
  * @param {String} content
  */
 ColorPalette.prototype.createLayer = function (color, content) {
-  let layer = document.createElement('div')
-  layer.classList.add(this.layerClass)
-
-  Object.assign(layer.style, {
-    backgroundColor: color,
-    flexGrow: 1,
-    textAlign: 'center'
+  let layer = this.createElement({
+    el: 'div',
+    classes: [this.layerClass],
+    styles: {
+      backgroundColor: color,
+      flexGrow: 1,
+      textAlign: 'center'
+    },
+    appendTo: this.wrapper
   })
 
   // If no content is provided, we use the color instead
   content = content || color
   this.layerContent(layer, content)
-
-  this.wrapper.appendChild(layer)
 }
 
 ColorPalette.prototype.layerContent = function (parentLayer, content) {
-  let layerContent = document.createElement('div')
-  layerContent.classList.add(this.layerContentClass)
-
-  Object.assign(layerContent.style, {
-    background: 'rgba(255, 255, 255, .4)',
-    boxShadow: '0 0 2px rgba(0, 0, 0, .25)',
-    display: 'inline-block',
-    padding: '.5em 1em'
+  let layerContent = this.createElement({
+    el: 'div',
+    classes: [this.layerContentClass],
+    styles: {
+      background: 'rgba(255, 255, 255, .4)',
+      boxShadow: '0 0 2px rgba(0, 0, 0, .25)',
+      display: 'inline-block',
+      padding: '.5em 1em'
+    },
+    appendTo: parentLayer
   })
 
   layerContent.innerHTML = content
-
-  parentLayer.appendChild(layerContent)
 }
