@@ -1,6 +1,7 @@
 class ColorPalette {
   /**
    * @param {Object|String[]} colors
+   * @param {Object} options
    * @constructor
    */
   constructor (colors, { height, appendTo } = {}) {
