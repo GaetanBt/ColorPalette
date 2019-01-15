@@ -3,14 +3,17 @@ class ColorPalette {
    * @param {Object|String[]} colors
    * @constructor
    */
-  constructor (colors) {
+  constructor (colors, { height, appendTo } = {}) {
     // CSS classes
     this.wrapperClass = 'ColorPalette'
     this.layerClass = `${this.wrapperClass}-layer`
     this.layerContentClass = `${this.layerClass}Content`
 
     // Create structure
-    this.createWrapper()
+    this.createWrapper({
+      height: height,
+      appendTo: appendTo
+    })
 
     if (!colors) {
       throw new Error('ColorPalette() -> Missing colors to build colorpalette.')
@@ -56,16 +59,16 @@ class ColorPalette {
   /**
    * Create palette wrapper and append it to the document body
    */
-  createWrapper () {
+  createWrapper ({ height = '100vh', appendTo = document.body }) {
     this.wrapper = this.createElement({
       el: 'div',
       classes: [this.wrapperClass],
       styles: {
         display: 'flex',
-        height: '100vh',
+        height: height,
         width: '100%'
       },
-      appendTo: document.body
+      appendTo: appendTo
     })
   }
 
